@@ -917,6 +917,20 @@
     color: var(--ink-light);
   }
 
+  .nav-mobile-cta {
+    display: none;
+    background: var(--green-800);
+    color: var(--white);
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .nav-mobile-cta:hover { background: var(--green-700); }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 860px) {
     .hero {
@@ -929,6 +943,7 @@
     .features-grid { grid-template-columns: 1fr; }
     .pricing-grid { grid-template-columns: 1fr; }
     .nav-links { display: none; }
+    .nav-mobile-cta { display: block; }
   }
 </style>
 </head>
@@ -941,8 +956,9 @@
     <li><a href="#how">How it works</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#" class="nav-cta">Get early access</a></li>
+    <li><a href="#signup" class="nav-cta">Get early access</a></li>
   </ul>
+  <a href="#signup" class="nav-mobile-cta">Get early access</a>
 </nav>
 
 <!-- HERO -->
@@ -950,7 +966,7 @@
   <div class="hero-content">
     <div class="hero-badge">
       <div class="badge-dot"></div>
-      Be the first to know
+      Now in early access — be the first to know
     </div>
 
     <h1 class="hero-headline">
@@ -963,17 +979,17 @@
       Tipped Off monitors planning applications near your home and sends you a clear, readable summary the moment something is submitted. No jargon. No guesswork.
     </p>
 
-    <form class="hero-form" action="https://googlemail.us3.list-manage.com/subscribe/post?u=40e4b07d363db09e153b02cff&amp;id=5dbd78b6f1&amp;f_id=00aab4e3f0" method="POST" target="_blank" novalidate>
+    <form id="signup" class="hero-form" action="https://googlemail.us3.list-manage.com/subscribe/post?u=40e4b07d363db09e153b02cff&amp;id=5dbd78b6f1&amp;f_id=00aab4e3f0" method="POST" target="_blank" novalidate>
       <input type="email" name="EMAIL" placeholder="Enter your email address" required>
       <!-- Bot protection — do not remove -->
       <div style="position:absolute;left:-5000px;" aria-hidden="true">
         <input type="text" name="b_40e4b07d363db09e153b02cff_5dbd78b6f1" tabindex="-1" value="">
       </div>
-      <button type="submit" class="btn-primary">Get alerts</button>
+      <button type="submit" class="btn-primary">Get early access</button>
     </form>
 
     <p class="hero-small">
-      GDPR-compliant. Unsubscribe anytime.
+      We'll only use your email to let you know when Tipped Off launches. No spam, unsubscribe anytime.
     </p>
   </div>
 
@@ -1084,7 +1100,7 @@
         </svg>
       </div>
       <h3>We monitor for you</h3>
-      <p>Our system checks planning.data.gov.uk continuously. The moment a new application lands within your radius, we catch it.</p>
+      <p>Our system checks planning.data.gov.uk every day. The moment a new application lands within your radius, we catch it.</p>
     </div>
 
     <div class="step">
@@ -1095,7 +1111,7 @@
         </svg>
       </div>
       <h3>Get notified straight away</h3>
-      <p>You get a short, readable alert by email, push notification or text. What's being built, what it means for you, and a link to the full council page if you want to dig deeper.</p>
+      <p>You get a short, readable alert by email. What's being built, what it means for you, and a link to the full council page if you want to dig deeper.</p>
     </div>
   </div>
 </section>
@@ -1219,28 +1235,27 @@
       <p class="price-desc">Everything you need to stay informed about planning activity on your street.</p>
       <ul class="price-features">
         <li>¼ mile radius alerts</li>
-        <li>Alerts when something happens, not on a schedule</li>
-        <li>Readable summary for every application</li>
+        <li>Daily email alerts for new applications</li>
+        <li>Plain-English summary for every application</li>
         <li>Full England coverage</li>
       </ul>
-      <button class="btn-price btn-price-outline">Start free</button>
+      <button class="btn-price btn-price-outline" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'}); return false;">Join waitlist</button>
     </div>
 
     <!-- Pro -->
     <div class="price-card featured">
-      <span class="price-badge dark">Most popular</span>
+      <span class="price-badge dark">Recommended</span>
       <div class="price-name" style="color: white;">Pro</div>
       <div class="price-amount">£5</div>
       <div class="price-period">per month, cancel anytime</div>
       <p class="price-desc" style="color: var(--green-200);">For homeowners who want full visibility and more control.</p>
       <ul class="price-features" style="margin-bottom: 24px;">
         <li>Up to 2 mile radius</li>
-        <li>Email, push and text alerts</li>
         <li>Filter by application type</li>
         <li>Map view of nearby applications</li>
         <li>Priority support</li>
       </ul>
-      <button class="btn-price btn-price-solid">Start 14-day free trial</button>
+      <button class="btn-price btn-price-solid" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'}); return false;">Join waitlist</button>
     </div>
   </div>
 </section>
@@ -1256,10 +1271,10 @@
     <div style="position:absolute;left:-5000px;" aria-hidden="true">
       <input type="text" name="b_40e4b07d363db09e153b02cff_5dbd78b6f1" tabindex="-1" value="">
     </div>
-    <button type="submit" class="btn-primary">Join waitlist</button>
+    <button type="submit" class="btn-primary">Get early access</button>
   </form>
 
-  <p class="footer-tagline">Free to join. We'll email you when you're in.</p>
+  <p class="footer-tagline">We'll only use your email to let you know when Tipped Off launches.</p>
 </section>
 
 <!-- FOOTER -->
@@ -1268,9 +1283,9 @@
   <ul class="footer-links">
     <li><a href="#">Privacy policy</a></li>
     <li><a href="#">Terms of service</a></li>
-    <li><a href="#">Contact</a></li>
+    <li><a href="mailto:hello@tipped-off.netlify.app">Contact</a></li>
   </ul>
-  <div class="footer-copy">© 2026 Tipped Off · tippedoff.co.uk</div>
+  <div class="footer-copy">© 2026 Tipped Off · tipped-off.netlify.app</div>
 </footer>
 
 <script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
