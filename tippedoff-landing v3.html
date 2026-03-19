@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tipped Off — Know What's Being Built Near You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --green-900: #0d2218;
+    --green-800: #1b3a2d;
+    --green-700: #234d3b;
+    --green-600: #2d6348;
+    --green-400: #4a9e70;
+    --green-200: #a3d4b8;
+    --green-100: #d4eddf;
+    --green-50: #f0f9f4;
+
+    --amber-500: #e8a020;
+    --amber-400: #f0b340;
+    --amber-100: #fdf0d0;
+
+    --terra-500: #c4704a;
+    --terra-100: #f5e4db;
+
+    --cream: #faf7f2;
+    --cream-dark: #f2ede4;
+    --ink: #1a1a18;
+    --ink-muted: #4a4a47;
+    --ink-light: #8a8a86;
+    --white: #ffffff;
+
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 32px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 247, 242, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(26, 58, 45, 0.08);
+    padding: 0 max(24px, calc((100% - 1100px) / 2));
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--green-800);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: var(--amber-500);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--green-800); }
+
+  .nav-cta {
+    background: var(--green-800);
+    color: var(--white) !important;
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 14px !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--green-700) !important;
+    transform: translateY(-1px);
+    color: var(--white) !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 92vh;
+    padding: 80px max(24px, calc((100% - 1100px) / 2)) 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-100);
+    color: var(--green-700);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+    border: 1px solid var(--green-200);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--green-400);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  .hero-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(42px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    color: var(--green-900);
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--amber-500);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--ink-muted);
+    line-height: 1.65;
+    max-width: 460px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-form {
+    display: flex;
+    gap: 10px;
+    max-width: 460px;
+    margin-bottom: 20px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .hero-form input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 1.5px solid rgba(26, 58, 45, 0.15);
+    border-radius: 100px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .hero-form input:focus {
+    border-color: var(--green-400);
+    box-shadow: 0 0 0 3px rgba(74, 158, 112, 0.12);
+  }
+
+  .hero-form input::placeholder { color: var(--ink-light); }
+
+  .btn-primary {
+    background: var(--green-800);
+    color: var(--white);
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(26, 58, 45, 0.25);
+  }
+
+  .btn-primary:hover {
+    background: var(--green-600);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(26, 58, 45, 0.3);
+  }
+
+  .hero-small {
+    font-size: 13px;
+    color: var(--ink-light);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .hero-small strong { color: var(--green-700); font-weight: 500; }
+
+  /* ── ALERT CARD (hero visual) ── */
+  .hero-visual {
+    position: relative;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .alert-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: 0 24px 64px rgba(26, 58, 45, 0.14), 0 4px 16px rgba(26, 58, 45, 0.08);
+    position: relative;
+    z-index: 2;
+  }
+
+  .alert-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .alert-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--green-100);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .alert-icon svg { width: 22px; height: 22px; }
+
+  .alert-meta h4 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .alert-meta p {
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+
+  .alert-badge {
+    margin-left: auto;
+    background: var(--green-100);
+    color: var(--green-700);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--green-200);
+  }
+
+  .alert-address {
+    background: var(--cream-dark);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+  }
+
+  .alert-address-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+  }
+
+  .alert-address-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .alert-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 13px;
+  }
+
+  .alert-table tr {
+    border-top: 1px solid var(--cream-dark);
+  }
+
+  .alert-table td {
+    padding: 7px 0;
+    vertical-align: top;
+  }
+
+  .alert-table td:first-child {
+    color: var(--ink-light);
+    font-weight: 400;
+    width: 38%;
+  }
+
+  .alert-table td:last-child {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .alert-divider {
+    border: none;
+    height: 1px;
+    background: var(--cream-dark);
+    margin: 16px 0;
+  }
+
+  .ai-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--amber-500);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+  }
+
+  .ai-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--amber-500);
+    border-radius: 50%;
+  }
+
+  .alert-summary {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-muted);
+  }
+
+  .alert-summary strong { color: var(--ink); font-weight: 500; }
+
+  .alert-footer {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .alert-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  .alert-btn-primary {
+    background: var(--green-800);
+    color: var(--white);
+  }
+
+  .alert-btn-secondary {
+    background: var(--cream-dark);
+    color: var(--ink-muted);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── TRUST STRIP ── */
+  .trust-strip {
+    background: var(--green-800);
+    padding: 18px max(24px, calc((100% - 1100px) / 2));
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--green-100);
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .trust-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .section {
+    padding: 100px max(24px, calc((100% - 1100px) / 2));
+  }
+
+  .section-tag {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--amber-500);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 16px;
+  }
+
+  .section-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 300;
+    letter-spacing: -1px;
+    color: var(--green-900);
+    line-height: 1.1;
+    margin-bottom: 16px;
+    max-width: 520px;
+  }
+
+  .section-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--ink-muted);
+    max-width: 480px;
+    line-height: 1.65;
+    margin-bottom: 64px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(26, 58, 45, 0.06);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .step {
+    background: var(--cream);
+    padding: 40px 32px;
+    position: relative;
+  }
+
+  .step-number {
+    font-family: 'Fraunces', serif;
+    font-size: 56px;
+    font-weight: 300;
+    color: var(--green-100);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .step-icon-wrap {
+    width: 48px;
+    height: 48px;
+    background: var(--green-800);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .step-icon-wrap svg { width: 24px; height: 24px; }
+
+  .step h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--green-900);
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .step p {
+    font-size: 15px;
+    color: var(--ink-muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── FEATURES ── */
+  .features-bg {
+    background: var(--green-800);
+    padding: 100px max(24px, calc((100% - 1100px) / 2));
+  }
+
+  .features-bg .section-tag { color: var(--amber-400); }
+  .features-bg .section-headline { color: var(--white); }
+  .features-bg .section-sub { color: var(--green-200); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .feature-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    transition: background 0.2s, transform 0.2s;
+    cursor: default;
+  }
+
+  .feature-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+  }
+
+  .feature-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(232, 160, 32, 0.18);
+    color: var(--amber-400);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .feature-icon {
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .feature-icon svg { width: 26px; height: 26px; }
+
+  .feature-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+
+  .feature-card p {
+    font-size: 14px;
+    color: var(--green-200);
+    line-height: 1.65;
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+
+  /* Map mock */
+  .map-mock {
+    background: #2a4a3a;
+    border-radius: var(--radius-md);
+    height: 140px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map-road {
+    position: absolute;
+    background: rgba(255,255,255,0.07);
+  }
+
+  .map-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--amber-400);
+    border-radius: 50%;
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 4px rgba(232, 160, 32, 0.25);
+  }
+
+  .map-dot-sm {
+    width: 7px;
+    height: 7px;
+    background: var(--green-400);
+    border: 2px solid var(--white);
+  }
+
+  /* AI comparison mock */
+  .ai-comparison {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .ai-before {
+    background: rgba(0,0,0,0.2);
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .ai-after {
+    background: rgba(74, 158, 112, 0.12);
+    padding: 12px 14px;
+  }
+
+  .ai-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .ai-before .ai-tag { color: #ff8080; }
+  .ai-after .ai-tag { color: var(--amber-400); }
+
+  .ai-text {
+    font-size: 12px;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .ai-after .ai-text { color: rgba(255,255,255,0.9); }
+
+  /* Coverage pill */
+  .coverage-bar {
+    margin-top: 16px;
+  }
+
+  .coverage-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .coverage-label { font-size: 12px; color: var(--green-200); }
+  .coverage-pct { font-size: 12px; font-weight: 500; }
+  .coverage-pct.good { color: var(--green-200); }
+  .coverage-pct.bad { color: #ff8080; }
+
+  .bar-track {
+    height: 5px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 100px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    transition: width 0.8s ease;
+  }
+
+  .bar-fill.good { background: var(--green-400); }
+  .bar-fill.bad { background: rgba(255,120,120,0.6); }
+
+  /* ── PRICING ── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .price-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+    border: 1.5px solid rgba(26, 58, 45, 0.08);
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .price-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(26, 58, 45, 0.12);
+  }
+
+  .price-card.featured {
+    background: var(--green-800);
+    border-color: transparent;
+  }
+
+  .price-badge {
+    display: inline-block;
+    background: var(--amber-100);
+    color: #854F0B;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .price-badge.dark {
+    background: rgba(232, 160, 32, 0.2);
+    color: var(--amber-400);
+  }
+
+  .price-amount {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--green-900);
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .price-card.featured .price-amount { color: var(--white); }
+
+  .price-period {
+    font-size: 14px;
+    color: var(--ink-light);
+    margin-bottom: 24px;
+  }
+
+  .price-card.featured .price-period { color: var(--green-200); }
+
+  .price-name {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--green-900);
+    margin-bottom: 8px;
+  }
+
+  .price-card.featured .price-name { color: var(--white); }
+
+  .price-desc {
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .price-card.featured .price-desc { color: var(--green-200); }
+
+  .price-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .price-features li {
+    font-size: 14px;
+    color: var(--ink-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .price-card.featured .price-features li { color: var(--green-100); }
+
+  .price-features li::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background: var(--green-100);
+    border-radius: 50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%232d6348' d='M6.5 11.5L3 8l1.5-1.5 2 2 5-5L13 5z'/%3E%3C/svg%3E");
+    margin-top: 2px;
+  }
+
+  .price-card.featured .price-features li::before {
+    background-color: rgba(255,255,255,0.12);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23a3d4b8' d='M6.5 11.5L3 8l1.5-1.5 2 2 5-5L13 5z'/%3E%3C/svg%3E");
+  }
+
+  .btn-price {
+    width: 100%;
+    padding: 14px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  .btn-price-outline {
+    background: transparent;
+    border: 1.5px solid rgba(26, 58, 45, 0.2);
+    color: var(--green-800);
+  }
+
+  .btn-price-outline:hover {
+    background: var(--green-50);
+  }
+
+  .btn-price-solid {
+    background: var(--amber-500);
+    color: var(--ink);
+  }
+
+  .btn-price-solid:hover {
+    background: var(--amber-400);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(232, 160, 32, 0.35);
+  }
+
+  /* ── FOOTER CTA ── */
+  .footer-cta {
+    background: var(--cream-dark);
+    padding: 100px max(24px, calc((100% - 1100px) / 2));
+    text-align: center;
+  }
+
+  .footer-cta .section-headline {
+    margin: 0 auto 16px;
+    text-align: center;
+  }
+
+  .footer-cta .section-sub {
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+
+  .footer-cta .hero-form {
+    max-width: 420px;
+    margin: 0 auto 12px;
+  }
+
+  .footer-tagline {
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid rgba(26, 58, 45, 0.08);
+    padding: 32px max(24px, calc((100% - 1100px) / 2));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--green-800);
+    letter-spacing: -0.5px;
+  }
+
+  .footer-logo span { color: var(--amber-500); }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--ink-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--green-800); }
+
+  .footer-copy {
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding-top: 48px;
+      min-height: auto;
+    }
+    .hero-visual { display: none; }
+    .steps { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Tipped<span> Off</span></a>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#" class="nav-cta">Get early access</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      Now in early access — join 240 homeowners
+    </div>
+
+    <h1 class="hero-headline">
+      Know what's being<br>
+      <em>built near you</em><br>
+      before it's too late.
+    </h1>
+
+    <p class="hero-sub">
+      Tipped Off monitors planning applications near your home and sends you a clear, readable summary the moment something is submitted. No jargon. No guesswork.
+    </p>
+
+    <form class="hero-form" action="https://googlemail.us3.list-manage.com/subscribe/post?u=40e4b07d363db09e153b02cff&amp;id=5dbd78b6f1&amp;f_id=00aab4e3f0" method="POST" target="_blank" novalidate>
+      <input type="email" name="EMAIL" placeholder="Enter your email address" required>
+      <!-- Bot protection — do not remove -->
+      <div style="position:absolute;left:-5000px;" aria-hidden="true">
+        <input type="text" name="b_40e4b07d363db09e153b02cff_5dbd78b6f1" tabindex="-1" value="">
+      </div>
+      <button type="submit" class="btn-primary">Get alerts</button>
+    </form>
+
+    <p class="hero-small">
+      GDPR-compliant. Unsubscribe anytime.
+    </p>
+  </div>
+
+  <!-- Hero visual: sample alert card -->
+  <div class="hero-visual">
+    <div class="alert-card">
+      <div class="alert-card-header">
+        <div class="alert-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2d6348" stroke-width="1.8">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div class="alert-meta">
+          <h4>New planning application</h4>
+          <p>Received · Just now</p>
+        </div>
+        <span class="alert-badge">Extension</span>
+      </div>
+
+      <div class="alert-address">
+        <div class="alert-address-label">Address</div>
+        <div class="alert-address-value">14 Harcourt Road, Oxford, OX2 6RT</div>
+      </div>
+
+      <div class="ai-label">
+        <div class="ai-dot"></div>
+        What it means
+      </div>
+
+      <p class="alert-summary">
+        No. 14 wants to build a <strong>two-storey rear extension</strong> with a loft conversion.
+      </p>
+
+      <table class="alert-table">
+        <tr><td>Type</td><td>Householder extension</td></tr>
+        <tr><td>Estimated size</td><td>~45m² added floor space</td></tr>
+        <tr><td>Boundary impact</td><td>No walls affected</td></tr>
+        <tr><td>Decision expected</td><td>Within 8 weeks</td></tr>
+        <tr><td>Distance from you</td><td>0.3 miles</td></tr>
+      </table>
+
+      <hr class="alert-divider">
+
+      <div class="alert-footer">
+        <button class="alert-btn alert-btn-primary">View full application</button>
+        <button class="alert-btn alert-btn-secondary">Dismiss</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">
+    <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+    GDPR-compliant by design
+  </div>
+  <div class="trust-item">
+    <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M15 9H9v2l3 1.5L9 14v2h6"/>
+    </svg>
+    We never sell your data
+  </div>
+  <div class="trust-item">
+    <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+    </svg>
+    Official government API, no scraping
+  </div>
+  <div class="trust-item">
+    <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+    Full England coverage
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="section-tag">How it works</div>
+  <h2 class="section-headline">Three steps.<br>Zero jargon.</h2>
+  <p class="section-sub">Tipped Off handles the monitoring so you don't have to wade through council websites every week.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">01</div>
+      <div class="step-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+      <h3>Enter your postcode</h3>
+      <p>Set your postcode and choose how far out you want to monitor, from ¼ mile to 2 miles. No account needed to get started.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">02</div>
+      <div class="step-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+          <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 01-3.46 0"/>
+        </svg>
+      </div>
+      <h3>We monitor for you</h3>
+      <p>Our system checks planning.data.gov.uk continuously. The moment a new application lands within your radius, we catch it.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">03</div>
+      <div class="step-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+        </svg>
+      </div>
+      <h3>Get notified straight away</h3>
+      <p>You get a short, readable alert by email, push notification or text. What's being built, what it means for you, and a link to the full council page if you want to dig deeper.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-bg" id="features">
+  <div class="section-tag">Why Tipped Off</div>
+  <h2 class="section-headline" style="color: white;">Built for homeowners,<br>not planners.</h2>
+  <p class="section-sub">Everything the existing tools should have had. And don't.</p>
+
+  <div class="features-grid">
+    <!-- Map feature -->
+    <div class="feature-card">
+      <div class="feature-chip">Coming in v2</div>
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+          <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+          <line x1="8" y1="2" x2="8" y2="18"/>
+          <line x1="16" y1="6" x2="16" y2="22"/>
+        </svg>
+      </div>
+      <h3>Interactive map view</h3>
+      <p>See every application near you plotted on a map. Click any pin for a summary. Know your neighbourhood at a glance.</p>
+
+      <!-- Mock map -->
+      <div class="map-mock">
+        <!-- Roads (simplified) -->
+        <div class="map-road" style="left: 0; top: 55px; width: 100%; height: 8px; transform: rotate(-2deg);"></div>
+        <div class="map-road" style="left: 60px; top: 0; width: 8px; height: 100%; transform: rotate(3deg);"></div>
+        <div class="map-road" style="left: 0; top: 95px; width: 100%; height: 5px; transform: rotate(1deg);"></div>
+        <div class="map-road" style="left: 120px; top: 0; width: 6px; height: 100%; transform: rotate(-1deg);"></div>
+        <div class="map-road" style="left: 180px; top: 0; width: 6px; height: 100%; transform: rotate(2deg);"></div>
+        <!-- Pins -->
+        <div class="map-dot" style="left: 42px; top: 42px;"></div>
+        <div class="map-dot map-dot-sm" style="left: 95px; top: 70px;"></div>
+        <div class="map-dot map-dot-sm" style="left: 155px; top: 38px;"></div>
+        <div class="map-dot map-dot-sm" style="left: 195px; top: 85px;"></div>
+        <!-- You are here -->
+        <div style="position: absolute; right: 12px; bottom: 10px; background: rgba(0,0,0,0.4); border-radius: 4px; padding: 3px 7px; font-size: 10px; color: rgba(255,255,255,0.7);">4 applications nearby</div>
+      </div>
+    </div>
+
+    <!-- AI summary feature -->
+    <div class="feature-card">
+      <div class="feature-chip">Available now</div>
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+          <path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+      </div>
+      <h3>What it actually means</h3>
+      <p>Every application is translated from council-speak into something you can read in 10 seconds and actually act on.</p>
+
+      <div class="ai-comparison">
+        <div class="ai-before">
+          <div class="ai-tag">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <circle cx="5" cy="5" r="4" stroke="#ff8080" stroke-width="1.5"/>
+              <path d="M5 3v2.5l1.5 1" stroke="#ff8080" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+            Raw council data
+          </div>
+          <p class="ai-text">Proposed erection of single storey rear extension with associated alterations including removal of existing chimney breast, installation of bi-fold glazing to rear elevation and associated internal remodelling works.</p>
+        </div>
+        <div class="ai-after">
+          <div class="ai-tag">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <circle cx="5" cy="5" r="4" fill="rgba(232,160,32,0.2)" stroke="#E8A020" stroke-width="1.2"/>
+              <path d="M3 5l1.5 1.5L7 3.5" stroke="#E8A020" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Tipped Off summary
+          </div>
+          <p class="ai-text">Your neighbour wants to build a <strong style="color: rgba(255,255,255,0.95);">single-storey extension at the back</strong>, remove an old chimney, and add large glass doors. No new windows facing your garden.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coverage feature -->
+    <div class="feature-card">
+      <div class="feature-chip">Available now</div>
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+      <h3>Full England coverage</h3>
+      <p>Built on the official planning.data.gov.uk API. We cover every Local Planning Authority in England. Not the 67% our competitors manage.</p>
+
+      <div class="coverage-bar">
+        <div class="coverage-row">
+          <span class="coverage-label">Tipped Off (England)</span>
+          <span class="coverage-pct good">100%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill good" style="width: 100%;"></div></div>
+
+        <div class="coverage-row">
+          <span class="coverage-label">Competitors (avg.)</span>
+          <span class="coverage-pct bad">67%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill bad" style="width: 67%;"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="section-tag" style="text-align: center;">Pricing</div>
+  <h2 class="section-headline" style="margin: 0 auto 16px; text-align: center;">Start free.<br>Upgrade when you need to.</h2>
+  <p class="section-sub" style="margin: 0 auto 56px; text-align: center;">No tricks. No data selling. Just a fair price for something genuinely useful.</p>
+
+  <div class="pricing-grid">
+    <!-- Free -->
+    <div class="price-card">
+      <span class="price-badge">Free forever</span>
+      <div class="price-name">Essential</div>
+      <div class="price-amount">£0</div>
+      <div class="price-period">per month, no card needed</div>
+      <p class="price-desc">Everything you need to stay informed about planning activity on your street.</p>
+      <ul class="price-features">
+        <li>¼ mile radius alerts</li>
+        <li>Alerts when something happens, not on a schedule</li>
+        <li>Readable summary for every application</li>
+        <li>Full England coverage</li>
+      </ul>
+      <button class="btn-price btn-price-outline">Start free</button>
+    </div>
+
+    <!-- Pro -->
+    <div class="price-card featured">
+      <span class="price-badge dark">Most popular</span>
+      <div class="price-name" style="color: white;">Pro</div>
+      <div class="price-amount">£5</div>
+      <div class="price-period">per month, cancel anytime</div>
+      <p class="price-desc" style="color: var(--green-200);">For homeowners who want full visibility and more control.</p>
+      <ul class="price-features" style="margin-bottom: 24px;">
+        <li>Up to 2 mile radius</li>
+        <li>Email, push and text alerts</li>
+        <li>Filter by application type</li>
+        <li>Map view of nearby applications</li>
+        <li>Priority support</li>
+      </ul>
+      <button class="btn-price btn-price-solid">Start 14-day free trial</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="footer-cta">
+  <h2 class="section-headline">Ready to stop being the last<br>to know?</h2>
+  <p class="section-sub">Join the waitlist. We're onboarding early members now and your postcode is likely already covered.</p>
+
+  <form class="hero-form" action="https://googlemail.us3.list-manage.com/subscribe/post?u=40e4b07d363db09e153b02cff&amp;id=5dbd78b6f1&amp;f_id=00aab4e3f0" method="POST" target="_blank" novalidate>
+    <input type="email" name="EMAIL" placeholder="your@email.com" required>
+    <!-- Bot protection — do not remove -->
+    <div style="position:absolute;left:-5000px;" aria-hidden="true">
+      <input type="text" name="b_40e4b07d363db09e153b02cff_5dbd78b6f1" tabindex="-1" value="">
+    </div>
+    <button type="submit" class="btn-primary">Join waitlist</button>
+  </form>
+
+  <p class="footer-tagline">Free to join. We'll email you when you're in.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Tipped<span> Off</span></div>
+  <ul class="footer-links">
+    <li><a href="#">Privacy policy</a></li>
+    <li><a href="#">Terms of service</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Tipped Off · tippedoff.co.uk</div>
+</footer>
+
+<script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+<script>
+(function($) {
+  window.fnames = new Array();
+  window.ftypes = new Array();
+  fnames[0] = 'EMAIL';
+  ftypes[0] = 'email';
+}(jQuery));
+var $mcj = jQuery.noConflict(true);
+</script>
+
+</body>
+</html>
